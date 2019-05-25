@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ygl.DbHelper;
-using yglAPI.Models.Order;
+using yglAPI.Models;
 
 namespace yglAPI.DbHelper.ModelDao
 {

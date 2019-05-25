@@ -28,7 +28,7 @@ namespace ygl.Utils
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(httpContext, httpContext.Response.StatusCode, ex.Message);
+                await HandleExceptionAsync(httpContext, 500, ex.Message);
             }
             finally
             {

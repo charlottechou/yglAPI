@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ygl.DbHelper;
-using yglAPI.Models.Tag;
+using yglAPI.Models;
 
 namespace yglAPI.DbHelper.ModelDao
 {
-    public class TagDao : DaoBase<myTag, Int32>
+    public class TagDao : DaoBase<MyTag, Int32>
     {
-        public int? insertTag(myTag tag)
+        public int? insertTag(MyTag tag)
         {
             return this.Insert(tag);
         }
@@ -20,7 +20,7 @@ namespace yglAPI.DbHelper.ModelDao
             return this.Delete(id);
         }
 
-        public myTag getTag(int id)
+        public MyTag getTag(int id)
         {
             return this.Get(id);
         }

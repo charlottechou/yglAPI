@@ -1,0 +1,37 @@
+﻿{
+  "Env": [
+    {
+      "Name": "he",
+      "ServerList": [
+        {
+          "Token": "test",
+          "Host": "203.195.140.254:9768",
+          "NickName": "",
+          "IIsFireUrl": "",
+          "DockerFireUrl": null,
+          "WindowsServiceFireUrl": null
+        }
+      ],
+      "LinuxServerList": [],
+      "IgnoreList": [],
+      "WindowsBackUpIgnoreList": []
+    }
+  ],
+  "IIsConfig": {
+    "SdkType": "netcore",
+    "WebSiteName": "yglAPI",
+    "LastEnvName": "he"
+  },
+  "WindowsServiveConfig": {
+    "ServiceName": "",
+    "SdkType": null,
+    "LastEnvName": null
+  },
+  "DockerConfig": {
+    "Prot": "",
+    "AspNetCoreEnv": "",
+    "LastEnvName": null,
+    "RemoveDaysFromPublished": "10",
+    "Volume": ""
+  }
+}

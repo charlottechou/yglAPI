@@ -73,14 +73,14 @@ namespace yglAPI
             services.AddCors();
 
             //跨域
-            services.AddCors(options =>
-            {
-                options.AddPolicy("MPolicy",
-                    corsBuilder => corsBuilder.AllowAnyOrigin()
-                                              .AllowAnyMethod()
-                                              .AllowAnyHeader()
-                                              .AllowCredentials());
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("MPolicy",
+            //        corsBuilder => corsBuilder.AllowAnyOrigin()
+            //                                  .AllowAnyMethod()
+            //                                  .AllowAnyHeader()
+            //                                  .AllowCredentials());
+            //});
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -95,7 +95,12 @@ namespace yglAPI
             {
                 app.UseHsts();
             }
-            app.UseCors();
+            app.UseStaticFiles();
+            app.UseCors(builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials());
             app.UseErrorHandlingMiddleware();
             app.UseAuthentication();//配置授权
 

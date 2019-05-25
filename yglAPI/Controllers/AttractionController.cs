@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Database.Models;
 using Microsoft.AspNetCore.Mvc;
+using ygl.Models.RestfulData;
 using yglAPI.DbHelper.ModelDao;
-using yglAPI.Models.Attraction;
+using yglAPI.Models;
+using zatbAPI.DbHelper;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,11 +16,32 @@ namespace yglAPI.Controllers
     [Route("api/[controller]")]
     public class AttractionController : Controller
     {
-        // GET: api/<controller>
+        /// <summary>
+        /// 获取景点列表
+        /// </summary>
+        /// <param name="page">当前页</param>
+        /// <param name="pageSize">页数</param>
+        /// <param name="type">景点类型（1.XX景点,2.YY景点）</param>
+        /// <returns></returns>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public RestfulArray<Attraction> GetAttractionList(int page,int pageSize,string type)
         {
-            return new string[] { "value1", "value2" };
+            string conditions = "";
+            if (type != null)
+            {
+                conditions= string.Format("where tag like N'%{0}%'", type); 
+            }
+            var attractionList = new AttractionDao().GetListPaged(page, pageSize, conditions, null);
+            foreach(var item in attractionList)
+            {
+                item.imgList = new ImageDao().GetImageList(item.Id, 1);
+            }
+            return new RestfulArray<Attraction>
+            {
+                data = attractionList,
+                total = new AttractionDao().RecordCount(conditions)
+
+            };
         }
 
         // GET api/<controller>/5
@@ -27,12 +51,26 @@ namespace yglAPI.Controllers
             return new AttractionDao().Get(id);
         }
 
-        // POST api/<controller>
+        /// <summary>
+        /// 新增景点
+        /// </summary>
+        /// <param name="attraction"></param>
         [HttpPost]
-        public void Post([FromBody]Attraction attraction)
+        public RestfulData PostAttraction([FromBody]Attraction attraction)
         {
-            new AttractionDao().insertAttraction(attraction);
+            int attractionId=  new AttractionDao().insertAttraction(attraction)??0;
+            if (attractionId != 0)
+            {
+                new ImageDao().InsertImageList(attraction.imgList, attractionId, 1);
+            }
+            
+            return new RestfulData
+            {
+                message = "新增成功"
+            };
         }
+
+
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
