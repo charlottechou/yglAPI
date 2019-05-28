@@ -44,11 +44,20 @@ namespace yglAPI.Controllers
             };
         }
 
-        // GET api/<controller>/5
+        /// <summary>
+        /// 获取个景点
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public Attraction  Get(int id)
+        public RestfulData<Attraction>  Get(int id)
         {
-            return new AttractionDao().Get(id);
+            var data= new AttractionDao().Get(id);
+            data.imgList = new ImageDao().GetImageList(id, 1);
+            return new RestfulData<Attraction>
+            {
+                data = data
+            };
         }
 
         /// <summary>
@@ -74,16 +83,25 @@ namespace yglAPI.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public void Put([FromBody]Attraction attraction)
+        public RestfulData PutAttraction([FromBody]Attraction attraction)
         {
             new AttractionDao().Update(attraction);
+            new ImageDao().UpdateImageList(attraction.imgList, attraction.Id, 1);
+            return new RestfulData
+            {
+                message = "更新成功！"
+            };
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public RestfulData DeleteAttraction(int id)
         {
             new AttractionDao().deleteAttraction(id);
+            return new RestfulData
+            {
+                message = "删除成功！"
+            };
         }
     }
 }
