@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ygl.Models.RestfulData;
 using yglAPI.DbHelper.ModelDao;
 using yglAPI.Models;
 
@@ -27,11 +28,18 @@ namespace yglAPI.Controllers
             return new UserDao().Get(id);
         }
 
-        // POST api/<controller>
+        /// <summary>
+        /// 用户注册
+        /// </summary>
+        /// <param name="user">用户实体</param>
         [HttpPost]
-        public void Post([FromBody]User user)
+        public RestfulData PostUser([FromBody]User user)
         {
             new UserDao().insertUser(user);
+            return new RestfulData
+            {
+                message = "注册成功"
+            };
         }
 
         // PUT api/<controller>/5

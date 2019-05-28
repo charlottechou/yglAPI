@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Swagger;
+using ygl.Models.RestfulData;
 using yglAPI.DbHelper.ModelDao;
 using yglAPI.Models;
 
@@ -14,11 +15,20 @@ namespace yglAPI.Controllers
     [Route("api/[controller]")]
     public class TagController : Controller
     {
-        // GET: api/<controller>
+        /// <summary>
+        /// 获取标签列表
+        /// </summary>
+        /// <param name="page">当前页</param>
+        /// <param name="pageSize">每页个数</param>
+        /// <returns></returns>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public RestfulArray<MyTag> GetTageList(int page,int pageSize)
         {
-            return new string[] { "value1", "value2" };
+
+            return new RestfulArray<MyTag>
+            {
+                data = new TagDao().GetListPaged(page, pageSize, null, null)
+            };
         }
 
         // GET api/<controller>/5
@@ -28,25 +38,47 @@ namespace yglAPI.Controllers
             return new TagDao().Get(id);
         }
 
-        // POST api/<controller>
+        /// <summary>
+        /// 新增标签
+        /// </summary>
+        /// <param name="tag">标签</param>
         [HttpPost]
-        public void Post([FromBody]MyTag tag)
+        public RestfulData PostMyTag([FromBody]MyTag tag)
         {
             new TagDao().insertTag(tag);
+            return new RestfulData
+            {
+                message = "新增成功"
+            };
         }
 
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put([FromBody]MyTag tag)
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="tag">tag对象</param>
+        /// <returns></returns>
+        [HttpPut]
+        public RestfulData Put([FromBody]MyTag tag)
         {
             new TagDao().Update(tag);
+            return new RestfulData
+            {
+                message = "更新成功！"
+            };
         }
 
-        // DELETE api/<controller>/5
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="id">tag id</param>
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public RestfulData Delete(int id)
         {
             new TagDao().deleteTag(id);
+            return new RestfulData
+            {
+                message = "删除成功"
+            };
         }
     }
 }
