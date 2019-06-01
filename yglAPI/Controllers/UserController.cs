@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ygl.Models.RestfulData;
+using ygl.Utils;
 using yglAPI.DbHelper.ModelDao;
 using yglAPI.Models;
 
@@ -14,18 +16,17 @@ namespace yglAPI.Controllers
     [Route("api/[controller]")]
     public class UserController : Controller
     {
-        // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<string> Get()
+        [Authorize]
+        public RestfulData<User> GetUser()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public User Get(int id)
-        {
-            return new UserDao().Get(id);
+            
+            var data=  new UserDao().Get(Helper.GetCurrentUser(HttpContext).Id);
+            data.TagList = data.Tag.Split('|');
+            return new RestfulData<User>
+            {
+                data=data
+            };
         }
 
         /// <summary>
@@ -35,18 +36,28 @@ namespace yglAPI.Controllers
         [HttpPost]
         public RestfulData PostUser([FromBody]User user)
         {
-            new UserDao().insertUser(user);
+            user.Tag = string.Join("|", user.TagList);
+            new UserDao().Insert(user);
             return new RestfulData
             {
-                message = "注册成功"
+                message = "注册成功!"
             };
         }
 
-        // PUT api/<controller>/5
+        /// <summary>
+        /// 修改用户信息
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPut]
-        public void Put([FromBody]User user)
+        public RestfulData Put([FromBody]User user)
         {
+            user.Tag = string.Join("|", user.TagList);
             new UserDao().Update(user);
+            return new RestfulData
+            {
+
+            };
         }
 
         // DELETE api/<controller>/5

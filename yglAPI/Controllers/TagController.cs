@@ -16,18 +16,16 @@ namespace yglAPI.Controllers
     public class TagController : Controller
     {
         /// <summary>
-        /// 获取标签列表
+        /// 获取系统内所有标签
         /// </summary>
-        /// <param name="page">当前页</param>
-        /// <param name="pageSize">每页个数</param>
         /// <returns></returns>
         [HttpGet]
-        public RestfulArray<MyTag> GetTageList(int page,int pageSize)
+        public RestfulArray<MyTag> GetTageList()
         {
 
             return new RestfulArray<MyTag>
             {
-                data = new TagDao().GetListPaged(page, pageSize, null, null)
+                data = new TagDao().GetList()
             };
         }
 

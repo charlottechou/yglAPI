@@ -110,6 +110,5 @@ namespace yglAPI.Controllers
             return res;
         }
 
-
     }
 }
