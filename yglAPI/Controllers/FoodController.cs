@@ -14,62 +14,58 @@ using yglAPI.DbHelper;
 namespace yglAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class ProductController : Controller
+    public class FoodController : Controller
     {
         /// <summary>
-        /// 获取产品列表
+        /// 获取美食列表
         /// </summary>
         /// <param name="page">当前页</param>
         /// <param name="pageSize">页数</param>
         /// <returns></returns>
         [HttpGet]
-        public RestfulArray<Product> GetProductList(int page, int pageSize, string type)
+        public RestfulArray<Food> GetFoodList(int page, int pageSize)
         {
-            string conditions = "";
-            if (type != null)
+            
+            var foodList = new FoodDao().GetListPaged(page, pageSize, null, null);
+            foreach (var item in foodList)
             {
-                conditions = string.Format("where tag like N'%{0}%'", type);
+                item.imgList = new ImageDao().GetImageList(item.Id, 2);
             }
-            var productList = new ProductDao().GetListPaged(page, pageSize, conditions, null);
-            foreach (var item in productList)
+            return new RestfulArray<Food>
             {
-                item.imgList = new ImageDao().GetImageList(item.Id, 6);
-            }
-            return new RestfulArray<Product>
-            {
-                data = productList,
-                total = new ProductDao().RecordCount(conditions)
+                data = foodList,
+                total = new FoodDao().RecordCount()
 
             };
         }
 
         /// <summary>
-        /// 获取单个产品
+        /// 获取单个美食
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public RestfulData<Product> Get(int id)
+        public RestfulData<Food> Get(int id)
         {
-            var data = new ProductDao().Get(id);
+            var data = new FoodDao().Get(id);
             data.imgList = new ImageDao().GetImageList(id, 1);
-            return new RestfulData<Product>
+            return new RestfulData<Food>
             {
                 data = data
             };
         }
 
         /// <summary>
-        /// 新增产品
+        /// 新增美食
         /// </summary>
-        /// <param name="product"></param>
+        /// <param name="food"></param>
         [HttpPost]
-        public RestfulData PostProduct([FromBody]Product product)
+        public RestfulData PostFood([FromBody]Food food)
         {
-            int productId = new ProductDao().insertProduct(product) ?? 0;
-            if (productId != 0)
+            int foodId = new FoodDao().insertFood(food) ?? 0;
+            if (foodId != 0)
             {
-                new ImageDao().InsertImageList(product.imgList, product.Id, 1);
+                new ImageDao().InsertImageList(food.imgList, food.Id, 1);
             }
 
             return new RestfulData
@@ -82,10 +78,10 @@ namespace yglAPI.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public RestfulData PutProduct([FromBody]Product product)
+        public RestfulData PutFood([FromBody]Food food)
         {
-            new ProductDao().Update(product);
-            new ImageDao().UpdateImageList(product.imgList, product.Id, 1);
+            new FoodDao().Update(food);
+            new ImageDao().UpdateImageList(food.imgList, food.Id, 1);
             return new RestfulData
             {
                 message = "更新成功！"
@@ -94,9 +90,9 @@ namespace yglAPI.Controllers
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public RestfulData DeleteProduct(int id)
+        public RestfulData DeleteFood(int id)
         {
-            new ProductDao().deleteProduct(id);
+            new FoodDao().deleteFood(id);
             return new RestfulData
             {
                 message = "删除成功！"

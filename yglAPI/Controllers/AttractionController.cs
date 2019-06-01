@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ygl.Models.RestfulData;
 using yglAPI.DbHelper.ModelDao;
 using yglAPI.Models;
-using zatbAPI.DbHelper;
+using yglAPI.DbHelper;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,7 +21,7 @@ namespace yglAPI.Controllers
         /// </summary>
         /// <param name="page">当前页</param>
         /// <param name="pageSize">页数</param>
-        /// <param name="type">景点类型（1.XX景点,2.YY景点）</param>
+        /// <param name="type">景点类型（1.风景名胜,2.休闲娱乐，3.人文历史）</param>
         /// <returns></returns>
         [HttpGet]
         public RestfulArray<Attraction> GetAttractionList(int page,int pageSize,string type)
@@ -54,6 +54,7 @@ namespace yglAPI.Controllers
         {
             var data= new AttractionDao().Get(id);
             data.imgList = new ImageDao().GetImageList(id, 1);
+            data.MyTag = data.Tag.Split("|");
             return new RestfulData<Attraction>
             {
                 data = data
@@ -67,6 +68,7 @@ namespace yglAPI.Controllers
         [HttpPost]
         public RestfulData PostAttraction([FromBody]Attraction attraction)
         {
+            attraction.Tag = string.Join("|", attraction.MyTag);
             int attractionId=  new AttractionDao().insertAttraction(attraction)??0;
             if (attractionId != 0)
             {

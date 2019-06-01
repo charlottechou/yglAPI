@@ -10,5 +10,6 @@ namespace yglAPI.Models
         public string Content { get; set; }
         public int Time { get; set; }
         public string Author { get; set; }
+        public IEnumerable<string> imgList { get; set; }
     }
 }

@@ -4,10 +4,218 @@
         <name>yglAPI</name>
     </assembly>
     <members>
+        <member name="M:yglAPI.Controllers.AttractionController.GetAttractionList(System.Int32,System.Int32,System.String)">
+            <summary>
+            获取景点列表
+            </summary>
+            <param name="page">当前页</param>
+            <param name="pageSize">页数</param>
+            <param name="type">景点类型（1.风景名胜,2.休闲娱乐，3.人文历史）</param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.Controllers.AttractionController.Get(System.Int32)">
+            <summary>
+            获取个景点
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.Controllers.AttractionController.PostAttraction(Database.Models.Attraction)">
+            <summary>
+            新增景点
+            </summary>
+            <param name="attraction"></param>
+        </member>
+        <member name="T:yglAPI.Controllers.AuthController">
+            <summary>
+            登录管理
+            </summary>
+        </member>
         <member name="M:yglAPI.Controllers.AuthController.Sigin(ygl.Models.Forms.SigninForm)">
             <summary>
-            登陆获取token
+            登陆获取token测试
             </summary> 
+        </member>
+        <member name="M:yglAPI.Controllers.AuthController.Logout">
+            <summary>
+            退出登录
+            </summary> 
+        </member>
+        <member name="M:yglAPI.Controllers.AuthController.GetUserInfo">
+            <summary>
+            获取用户信息
+            </summary>
+        </member>
+        <member name="T:yglAPI.Controllers.FileController">
+            <summary>
+            文件管理
+            </summary>
+        </member>
+        <member name="M:yglAPI.Controllers.FileController.UploadFile(Microsoft.AspNetCore.Http.IFormFile,System.Int32)">
+            <summary>
+            上传图片
+            </summary>
+            <param name="file">图片</param>
+            <param name="type">类型（1.新闻,2.活动，3.闲趣，4.打卡点，5.头像）</param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.Controllers.FoodController.GetFoodList(System.Int32,System.Int32)">
+            <summary>
+            获取美食列表
+            </summary>
+            <param name="page">当前页</param>
+            <param name="pageSize">页数</param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.Controllers.FoodController.Get(System.Int32)">
+            <summary>
+            获取单个美食
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.Controllers.FoodController.PostFood(yglAPI.Models.Food)">
+            <summary>
+            新增美食
+            </summary>
+            <param name="food"></param>
+        </member>
+        <member name="M:yglAPI.Controllers.NewsController.GetNewsList(System.Int32,System.Int32)">
+            <summary>
+            获取新闻列表
+            </summary>
+            <param name="page">当前页</param>
+            <param name="pageSize">页数</param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.Controllers.NewsController.Get(System.Int32)">
+            <summary>
+            获取单个新闻
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.Controllers.NewsController.PostNews(yglAPI.Models.News)">
+            <summary>
+            新增新闻
+            </summary>
+            <param name="news"></param>
+        </member>
+        <member name="M:yglAPI.Controllers.NoteController.GetNoteList(System.Int32,System.Int32)">
+            <summary>
+            获取游记列表
+            </summary>
+            <param name="page">当前页</param>
+            <param name="pageSize">页数</param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.Controllers.NoteController.Get(System.Int32)">
+            <summary>
+            获取单个游记
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.Controllers.NoteController.PostNote(yglAPI.Models.Note)">
+            <summary>
+            新增游记
+            </summary>
+            <param name="note"></param>
+        </member>
+        <member name="M:yglAPI.Controllers.ProductController.GetProductList(System.Int32,System.Int32,System.String)">
+            <summary>
+            获取产品列表
+            </summary>
+            <param name="page">当前页</param>
+            <param name="pageSize">页数</param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.Controllers.ProductController.Get(System.Int32)">
+            <summary>
+            获取单个产品
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.Controllers.ProductController.PostProduct(yglAPI.Models.Product)">
+            <summary>
+            新增产品
+            </summary>
+            <param name="product"></param>
+        </member>
+        <member name="M:yglAPI.Controllers.ScoreController.GetScoreList(System.Int32,System.Int32)">
+            <summary>
+            获取评论列表
+            </summary>
+            <param name="page">当前页</param>
+            <param name="pageSize">页数</param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“M:yglAPI.Controllers.ScoreController.PostScore(yglAPI.Models.Score)”忽略有格式错误的 XML 注释 -->
+        <member name="M:yglAPI.Controllers.TagController.GetTageList(System.Int32,System.Int32)">
+            <summary>
+            获取标签列表
+            </summary>
+            <param name="page">当前页</param>
+            <param name="pageSize">每页个数</param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.Controllers.TagController.PostMyTag(yglAPI.Models.MyTag)">
+            <summary>
+            新增标签
+            </summary>
+            <param name="tag">标签</param>
+        </member>
+        <member name="M:yglAPI.Controllers.TagController.Put(yglAPI.Models.MyTag)">
+            <summary>
+            更新
+            </summary>
+            <param name="tag">tag对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.Controllers.TagController.Delete(System.Int32)">
+            <summary>
+            删除
+            </summary>
+            <param name="id">tag id</param>
+        </member>
+        <member name="M:yglAPI.Controllers.UserController.PostUser(yglAPI.Models.User)">
+            <summary>
+            用户注册
+            </summary>
+            <param name="user">用户实体</param>
+        </member>
+        <member name="M:yglAPI.DbHelper.ImageDao.GetImageList(System.Int32,System.Int32)">
+            <summary>
+            获取图片列表
+            </summary>
+            <param name="toId">对应id</param>
+            <param name="type">类型（1.景点,2.美食，3.游记，4.新闻，5.头像,6.产品,7.评论）</param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.DbHelper.ImageDao.InsertImageList(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Int32)">
+            <summary>
+            将图片url数组存入数据库
+            </summary>
+            <param name="imgList">url数组</param>
+            <param name="toId">对应id</param>
+            <param name="type">类型（1.景点,2.美食，3.游记，4.新闻，5.头像,6.产品,7.评论）</param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.DbHelper.ImageDao.UpdateImageList(System.Collections.Generic.IEnumerable{System.String},System.Int32,System.Int32)">
+            <summary>
+            更新图片url
+            </summary>
+            <param name="imgList"></param>
+            <param name="toId"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“P:yglAPI.Models.UserInfo.Roles”忽略有格式错误的 XML 注释 -->
+        <member name="P:yglAPI.Models.UserInfo.Name">
+            <summary>
+            昵称
+            </summary>
         </member>
         <member name="M:ygl.DbHelper.IDaoBase`2.Get(`1)">
             <summary>

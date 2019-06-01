@@ -14,5 +14,6 @@ namespace yglAPI.Models
         public string Connet { get; set; }
         public string Author { get; set; }
         public int? Up { get; set; }
+        public IEnumerable<string> imgList { get; set; }
     }
 }

@@ -12,9 +12,9 @@ namespace Database.Models
         public double Latitude { get; set; }
         public string Location { get; set; }
         public string Tag { get; set; }
-        public string Img { get; set; }
         public int? Up { get; set; }
 
+        public IEnumerable<string> MyTag { get; set; }
         public IEnumerable<string> imgList { get; set; }
     }
 }

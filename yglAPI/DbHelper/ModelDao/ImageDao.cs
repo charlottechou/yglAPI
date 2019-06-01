@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using ygl.DbHelper;
 using yglAPI.Models;
 
-namespace zatbAPI.DbHelper
+namespace yglAPI.DbHelper
 {
     public class ImageDao : DaoBase<Img, Int32>
     {
@@ -13,7 +13,7 @@ namespace zatbAPI.DbHelper
         /// 获取图片列表
         /// </summary>
         /// <param name="toId">对应id</param>
-        /// <param name="type">类型（1.景点,2.活动，3.闲趣，4.打卡点）</param>
+        /// <param name="type">类型（1.景点,2.美食，3.游记，4.新闻，5.头像,6.产品,7.评论）</param>
         /// <returns></returns>
         public List<string> GetImageList(int toId,int type)
         {
@@ -30,7 +30,7 @@ namespace zatbAPI.DbHelper
         /// </summary>
         /// <param name="imgList">url数组</param>
         /// <param name="toId">对应id</param>
-        /// <param name="type">类型（1.新闻,2.活动，3.闲趣，4.打卡点）</param>
+        /// <param name="type">类型（1.景点,2.美食，3.游记，4.新闻，5.头像,6.产品,7.评论）</param>
         /// <returns></returns>
         public int InsertImageList(IEnumerable<string> imgList, int toId, int type)
         {
