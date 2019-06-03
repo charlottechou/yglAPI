@@ -8,6 +8,8 @@ using ygl.Models.RestfulData;
 using yglAPI.DbHelper.ModelDao;
 using yglAPI.Models;
 using yglAPI.DbHelper;
+using ygl.Utils;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -108,6 +110,39 @@ namespace yglAPI.Controllers
             return new RestfulData
             {
                 message = "删除成功！"
+            };
+        }
+
+        /// <summary>
+        /// 根据当前登录用户tag推荐景点
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        [HttpGet("user")]
+        [Authorize]
+        public RestfulArray<Attraction> GetUserAttractionList(int page,int pageSize)
+        {
+            
+            var userInfo = new UserDao().Get(Helper.GetCurrentUser(HttpContext).Id);
+            userInfo.TagList = userInfo.Tag.Split("|");
+            string con = "where";
+            foreach(var item in userInfo.TagList)
+            {
+                con += string.Format(" tag like N'%{0}%' or", item);
+            }
+            if (string.Equals("where",con)) {
+                con = null;
+            }
+            else
+            {
+                con = con.Substring(0, con.Length - 2);
+            }
+            
+            return new RestfulArray<Attraction>
+            {
+                data= new AttractionDao().GetListPaged(page, pageSize, con, null),
+                total=new AttractionDao().RecordCount(con)
             };
         }
     }

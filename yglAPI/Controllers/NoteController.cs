@@ -8,6 +8,7 @@ using ygl.Models.RestfulData;
 using yglAPI.DbHelper.ModelDao;
 using yglAPI.Models;
 using yglAPI.DbHelper;
+using ygl.DbHelper;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,15 +24,15 @@ namespace yglAPI.Controllers
         /// <param name="pageSize">页数</param>
         /// <returns></returns>
         [HttpGet]
-        public RestfulArray<Note> GetNoteList(int page, int pageSize)
+        public RestfulArray<NoteView> GetNoteList(int page, int pageSize)
         {
            
-            var noteList = new NoteDao().GetListPaged(page, pageSize, null, null);
+            var noteList = new DaoBase<NoteView,int>().GetListPaged(page, pageSize, null, null);
             foreach (var item in noteList)
             {
                 item.imgList = new ImageDao().GetImageList(item.Id, 3);
             }
-            return new RestfulArray<Note>
+            return new RestfulArray<NoteView>
             {
                 data = noteList,
                 total = new AttractionDao().RecordCount()
