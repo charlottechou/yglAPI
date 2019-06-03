@@ -22,14 +22,19 @@ namespace yglAPI.Controllers
         /// <param name="page">当前页</param>
         /// <param name="pageSize">页数</param>
         /// <param name="type">景点类型（1.风景名胜,2.休闲娱乐，3.人文历史）</param>
+        /// <param name="name">景点名称</param>
         /// <returns></returns>
         [HttpGet]
-        public RestfulArray<Attraction> GetAttractionList(int page,int pageSize,string type)
+        public RestfulArray<Attraction> GetAttractionList(int page,int pageSize,string type,string name)
         {
-            string conditions = "";
-            if (type != null)
+            string conditions = "where 1=1";
+            if (!string.IsNullOrEmpty(type))
             {
-                conditions= string.Format("where tag like N'%{0}%'", type); 
+                conditions+= string.Format(" and tag like N'%{0}%'", type); 
+            }
+            if (!string.IsNullOrEmpty(name))
+            {
+                conditions += string.Format(" and name like N'%{0}%'", name);
             }
             var attractionList = new AttractionDao().GetListPaged(page, pageSize, conditions, null);
             foreach(var item in attractionList)

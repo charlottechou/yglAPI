@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ygl.Models.RestfulData;
+using yglAPI.DbHelper;
 using yglAPI.DbHelper.ModelDao;
 using yglAPI.Models;
 
@@ -13,39 +15,67 @@ namespace yglAPI.Controllers
     [Route("api/[controller]")]
     public class OrderController : Controller
     {
-        // GET: api/<controller>
+        /// <summary>
+        /// 获取游记列表
+        /// </summary>
+        /// <param name="page">当前页</param>
+        /// <param name="pageSize">页数</param>
+        /// <returns></returns>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public RestfulArray<Order> GetOrderList(int page, int pageSize)
         {
-            return new string[] { "value1", "value2" };
+
+            var orderList = new OrderDao().GetListPaged(page, pageSize, null, null);
+           
+            return new RestfulArray<Order>
+            {
+                data = orderList,
+                total = new OrderDao().RecordCount()
+
+            };
         }
 
-        // GET api/<controller>/5
+        /// <summary>
+        /// 获取单个订单
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public Order Get(int id)
+        public RestfulData<Order> Get(int id)
         {
-            return new OrderDao().Get(id);
+            var data = new OrderDao().Get(id);
+           
+            return new RestfulData<Order>
+            {
+                data = data
+            };
         }
 
-        // POST api/<controller>
-        [HttpPost]
-        public void Post([FromBody]Order order)
-        {
-            new OrderDao().insertOrder(order);
-        }
+      
+
+
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public void Put([FromBody]Order order)
+        public RestfulData PutOrder([FromBody]Order order)
         {
             new OrderDao().Update(order);
+           
+            return new RestfulData
+            {
+                message = "更新成功！"
+            };
         }
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public RestfulData DeleteOrder(int id)
         {
             new OrderDao().deleteOrder(id);
+            return new RestfulData
+            {
+                message = "删除成功！"
+            };
         }
     }
 }

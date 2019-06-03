@@ -48,7 +48,7 @@ namespace yglAPI.Controllers
         public RestfulData<Note> Get(int id)
         {
             var data = new NoteDao().Get(id);
-            data.imgList = new ImageDao().GetImageList(id, 1);
+            data.imgList = new ImageDao().GetImageList(id, 3);
             return new RestfulData<Note>
             {
                 data = data
@@ -65,7 +65,7 @@ namespace yglAPI.Controllers
             int noteId = new NoteDao().insertNote(note) ?? 0;
             if (noteId != 0)
             {
-                new ImageDao().InsertImageList(note.imgList, note.Id, 1);
+                new ImageDao().InsertImageList(note.imgList, noteId, 3);
             }
 
             return new RestfulData

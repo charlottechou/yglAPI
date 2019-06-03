@@ -16,6 +16,10 @@ namespace yglAPI.Controllers
     [Route("api/[controller]")]
     public class UserController : Controller
     {
+        /// <summary>
+        /// 获取当前登录用户信息
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Authorize]
         public RestfulData<User> GetUser()

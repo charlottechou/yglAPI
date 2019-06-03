@@ -4,13 +4,14 @@
         <name>yglAPI</name>
     </assembly>
     <members>
-        <member name="M:yglAPI.Controllers.AttractionController.GetAttractionList(System.Int32,System.Int32,System.String)">
+        <member name="M:yglAPI.Controllers.AttractionController.GetAttractionList(System.Int32,System.Int32,System.String,System.String)">
             <summary>
             获取景点列表
             </summary>
             <param name="page">当前页</param>
             <param name="pageSize">页数</param>
             <param name="type">景点类型（1.风景名胜,2.休闲娱乐，3.人文历史）</param>
+            <param name="name">景点名称</param>
             <returns></returns>
         </member>
         <member name="M:yglAPI.Controllers.AttractionController.Get(System.Int32)">
@@ -56,7 +57,7 @@
             上传图片
             </summary>
             <param name="file">图片</param>
-            <param name="type">类型（1.新闻,2.活动，3.闲趣，4.打卡点，5.头像）</param>
+            <param name="type">类型（1.景点,2.美食，3.游记，4.新闻，5.头像,6.产品,7.评论</param>
             <returns></returns>
         </member>
         <member name="M:yglAPI.Controllers.FoodController.GetFoodList(System.Int32,System.Int32)">
@@ -122,6 +123,21 @@
             </summary>
             <param name="note"></param>
         </member>
+        <member name="M:yglAPI.Controllers.OrderController.GetOrderList(System.Int32,System.Int32)">
+            <summary>
+            获取游记列表
+            </summary>
+            <param name="page">当前页</param>
+            <param name="pageSize">页数</param>
+            <returns></returns>
+        </member>
+        <member name="M:yglAPI.Controllers.OrderController.Get(System.Int32)">
+            <summary>
+            获取单个订单
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:yglAPI.Controllers.ProductController.GetProductList(System.Int32,System.Int32,System.String)">
             <summary>
             获取产品列表
@@ -152,12 +168,10 @@
             <returns></returns>
         </member>
         <!-- 对于成员“M:yglAPI.Controllers.ScoreController.PostScore(yglAPI.Models.Score)”忽略有格式错误的 XML 注释 -->
-        <member name="M:yglAPI.Controllers.TagController.GetTageList(System.Int32,System.Int32)">
+        <member name="M:yglAPI.Controllers.TagController.GetTageList">
             <summary>
-            获取标签列表
+            获取系统内所有标签
             </summary>
-            <param name="page">当前页</param>
-            <param name="pageSize">每页个数</param>
             <returns></returns>
         </member>
         <member name="M:yglAPI.Controllers.TagController.PostMyTag(yglAPI.Models.MyTag)">
@@ -179,11 +193,24 @@
             </summary>
             <param name="id">tag id</param>
         </member>
+        <member name="M:yglAPI.Controllers.UserController.GetUser">
+            <summary>
+            获取当前登录用户信息
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:yglAPI.Controllers.UserController.PostUser(yglAPI.Models.User)">
             <summary>
             用户注册
             </summary>
             <param name="user">用户实体</param>
+        </member>
+        <member name="M:yglAPI.Controllers.UserController.Put(yglAPI.Models.User)">
+            <summary>
+            修改用户信息
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
         </member>
         <member name="M:yglAPI.DbHelper.ImageDao.GetImageList(System.Int32,System.Int32)">
             <summary>

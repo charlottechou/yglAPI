@@ -40,7 +40,7 @@ namespace yglAPI.Controllers
         /// 上传图片
         /// </summary>
         /// <param name="file">图片</param>
-        /// <param name="type">类型（1.新闻,2.活动，3.闲趣，4.打卡点，5.头像）</param>
+        /// <param name="type">类型（1.景点,2.美食，3.游记，4.新闻，5.头像,6.产品,7.评论</param>
         /// <returns></returns>
         [HttpPost("UploadImg")]
         [SwaggerResponse(200, "上传成功(data为文件id)", typeof(RestfulData))]

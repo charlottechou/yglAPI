@@ -11,6 +11,8 @@ namespace yglAPI.Models
         public string Content { get; set; }
         public int Adultprice { get; set; }
         public string Tag { get; set; }
+        public IEnumerable<string> MyTag { get; set; }
         public IEnumerable<string> imgList { get; set; }
+      
     }
 }
